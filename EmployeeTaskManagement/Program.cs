@@ -24,6 +24,7 @@ namespace EmployeeTaskManagement
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IDepartmentManager, DepartmentManager>();
+            builder.Services.AddScoped<IDesignationManager,DesignationManager>();
             
             builder.Services.AddControllers();
 

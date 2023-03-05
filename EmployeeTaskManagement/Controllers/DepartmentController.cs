@@ -17,7 +17,8 @@ namespace EmployeeTaskManagement.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var DepList=_departmentManager.GetDepartment();
+            return View(DepList);
         }
         public IActionResult Create()
         {
@@ -31,13 +32,13 @@ namespace EmployeeTaskManagement.Controllers
             bool isSaved = _departmentManager.Add(department);
             if (isSaved) 
             {
-                return Ok("Department added successfully.");
+                return RedirectToAction(nameof(Index));
             }
             else
             {
                 return BadRequest("Department does not added.Please try again.");
             }
-            
+          
         }
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EmployeeTaskManagement.Data;
+using EmployeeTaskManagement.Areas.Identity.Data;
+
 namespace EmployeeTaskManagement
 {
     public class Program
@@ -8,9 +10,10 @@ namespace EmployeeTaskManagement
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                        var connectionString = builder.Configuration.GetConnectionString("EmployeeDbContextConnection") ?? throw new InvalidOperationException("Connection string 'EmployeeDbContextConnection' not found.");
+            var connectionString = builder.Configuration.GetConnectionString("EmployeeDbContextConnection");
+            builder.Services.AddDbContext<EmployeeDbContext>(x => x.UseSqlServer(connectionString));
 
-                                    builder.Services.AddDbContext<EmployeeDbContext>(options =>
+            builder.Services.AddDbContext<EmployeeDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
                                                 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -32,12 +35,13 @@ namespace EmployeeTaskManagement
                         app.UseAuthentication();;
 
             app.UseAuthorization();
-
+            app.MapRazorPages();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+          
             app.Run();
+           
         }
     }
 }

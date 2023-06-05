@@ -4,33 +4,57 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@{
+    string menuTextColor = "text-white";
 }
-    </tbody>
-</table>
+<style>
+    .custom-icon {
+        color: green; /* Replace "red" with your desired color */
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+<link href="~/css/datatable.min.css" rel="stylesheet" />
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="text-center  bg-primary @menuTextColor">
+                <h1 class="display-8 mt-4 mb-4 p-2">Designation</h1>
+            </div>
+            <div>
+                <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus-circle"></i> Add</a>
+            </div>
+            <table class="table display table-striped table-borderless custrom-table mb-2">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="d-flex justify-content-end">
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit<i class="fas fa-pencil-alt"></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details<i class="fas fa-info-circle"></i></a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete<i class="fas fa-trash-alt"></i></a>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    <script src="~/js/jquery.dataTables.min.js"></script>
+}

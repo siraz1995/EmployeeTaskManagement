@@ -4,9 +4,9 @@ using EmployeeTaskManagement.Models;
 
 namespace EmployeeTaskManagement.Interface.Manager
 {
-    interface IDepartmentManager : IBaseManager<Department>
+   public interface IDepartmentManager : IBaseManager<Department>
     {
-        ICollection<Department> GetWings();
-        Department GetWingById(int? id);
+        ICollection<Department> GetDepartment();
+        Department GetDepartmentById(int? id);
     }
 }

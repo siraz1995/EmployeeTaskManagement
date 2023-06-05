@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace EmployeeTaskManagement.Interface.Manager
 {
-    interface IBaseManager<T> where T : class
+   public interface IBaseManager<T> where T : class
 
     {
         bool Add(T entity);

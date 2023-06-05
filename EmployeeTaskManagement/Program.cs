@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EmployeeTaskManagement.Data;
-using EmployeeTaskManagement.Areas.Identity.Data;
+//using EmployeeTaskManagement.Areas.Identity.Data;
 using EmployeeTaskManagement.Interface.Manager;
 using EmployeeTaskManagement.Manager;
 
@@ -17,7 +17,7 @@ namespace EmployeeTaskManagement
 
             builder.Services.AddDbContext<EmployeeDbContext>(options =>
                 options.UseSqlServer(connectionString));
-            builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EmployeeDbContext>();
 
             // Add services to the container.

@@ -7,6 +7,7 @@
 @{
     string menuTextColor = "text-white";
 }
+<div class="IndexDiv">
 <div class="row justify-content-center mt-4 mb-2">
     <div class="col-md-5">
         <form asp-action="Create" class="form-signin create-form bg-white rounded border shadow-sm p-4">
@@ -32,7 +33,7 @@
         </form>
     </div>
 </div>
-
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

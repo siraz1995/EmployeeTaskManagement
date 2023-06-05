@@ -88,8 +88,9 @@ body {
 .IndexDiv {
     position: fixed;
     background: linear-gradient(to right,#C4E0E0,#C4E0F9);
-    top: 8%;
+    top: 7%;
     left: 0;
+    bottom:6%;
     min-height: 85%;
     min-width: 100%;
 }

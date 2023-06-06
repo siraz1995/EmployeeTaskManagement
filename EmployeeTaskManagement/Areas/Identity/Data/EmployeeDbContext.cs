@@ -51,4 +51,6 @@ public class EmployeeDbContext : IdentityDbContext<IdentityUser>
     public DbSet<RoleSubMenu> RoleSubMenus { get; set; }
     public DbSet<Department> Department { get; set; }
     public DbSet<Designation> Designation { get; set; }
+    public DbSet<EmployeeInfo> EmployeeInfo { get; set; }
+    public DbSet<TaskAssign> TaskAssign { get; set; }
 }

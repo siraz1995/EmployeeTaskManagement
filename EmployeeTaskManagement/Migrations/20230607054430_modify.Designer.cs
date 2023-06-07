@@ -4,6 +4,7 @@ using EmployeeTaskManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeTaskManagement.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    partial class EmployeeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230607054430_modify")]
+    partial class modify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,12 +177,6 @@ namespace EmployeeTaskManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmployeeInfoId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -197,8 +193,6 @@ namespace EmployeeTaskManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeInfoId");
 
                     b.ToTable("TaskAssign");
                 });
@@ -433,15 +427,6 @@ namespace EmployeeTaskManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("MainMenu");
-                });
-
-            modelBuilder.Entity("EmployeeTaskManagement.Models.TaskAssign", b =>
-                {
-                    b.HasOne("EmployeeTaskManagement.Models.EmployeeInfo", "EmployeeInfo")
-                        .WithMany()
-                        .HasForeignKey("EmployeeInfoId");
-
-                    b.Navigation("EmployeeInfo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

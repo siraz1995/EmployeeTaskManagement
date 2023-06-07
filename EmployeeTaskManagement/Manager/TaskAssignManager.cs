@@ -13,7 +13,7 @@ namespace EmployeeTaskManagement.Manager
 
         public ICollection<TaskAssign> GetAll()
         {
-            return Get(c => true);
+            return Get(c => true,c=>c.EmployeeInfo);
         }
 
         public TaskAssign GetById(int id)

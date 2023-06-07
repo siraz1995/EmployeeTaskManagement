@@ -3,9 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@{
-    string menuTextColor = "text-white";
+    int row = 1;
 }
 <style>
     .custom-icon {
@@ -18,9 +16,9 @@
 <div class="IndexDiv">
     <div class="container bg-light">
         <div class="row">
-            <div class="col-md-8 mx-auto">
-                <div class="text-center  bg-primary @menuTextColor">
-                    <h1 class="display-8 mt-4 mb-4 p-2">Designation</h1>
+            <div class="col-md-12 mx-auto">
+                <div class="text-center  bg-primary text-white">
+                    <h1 class="display-12 mt-4 mb-4 p-2">List of Employee</h1>
                 </div>
                 <div>
                     <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus-circle"></i> Add</a>
@@ -28,45 +26,57 @@
                 <table class="table display table-striped table-borderless custrom-table mb-2">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>
-                                @Html.DisplayNameFor(model => model.EmployeeName)
+                               Employee Name 
+                                @*@Html.DisplayNameFor(model => model.EmployeeName)*@
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.EmployeeCode)
+                                Employee Code
+                                @*@Html.DisplayNameFor(model => model.EmployeeCode)*@
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.JoiningDate)
+                                Department Name
+                                @*@Html.DisplayNameFor(model => model.JoiningDate)*@
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Department.Name)
+                                Designation Name
+                               @* @Html.DisplayNameFor(model => model.Department.Name)*@
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Designation.Name)
+                                Joining Date
+                               @* @Html.DisplayNameFor(model => model.Designation.Name)*@
                             </th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>@(row++)</td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                    @item.EmployeeName
+                                    @*@Html.DisplayFor(modelItem => item.EmployeeName)*@
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EmployeeCode)
+                                    @item.EmployeeCode
+                                    @*@Html.DisplayFor(modelItem => item.EmployeeCode)*@
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.JoiningDate)
+                                    @item.Department.Name
+                                   @* @Html.DisplayFor(modelItem => item.JoiningDate)*@
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Department.Name)
+                                    @item.Designation.Name
+                                    @*@Html.DisplayFor(modelItem => item.Department.Name)*@
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Designation.Name)
+                                    @item.JoiningDate
+                                    @*@Html.DisplayFor(modelItem => item.Designation.Name)*@
                                 </td>
                                 <td class="d-flex justify-content-end">
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit<i class="fas fa-pencil-alt"></i></a> |
+                                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a> |
                                     <a asp-action="Details" asp-route-id="@item.Id">Details<i class="fas fa-info-circle"></i></a> |
                                     <a asp-action="Delete" asp-route-id="@item.Id">Delete<i class="fas fa-trash-alt"></i></a>
                                 </td>

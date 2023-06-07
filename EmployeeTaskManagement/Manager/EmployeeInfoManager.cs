@@ -14,7 +14,7 @@ namespace EmployeeTaskManagement.Manager
 
         public ICollection<EmployeeInfo> GetAll()
         {
-            return Get(c => true);
+            return Get(c => true, c=>c.Department, c=>c.Designation);
         }
 
         public EmployeeInfo GetById(int id)

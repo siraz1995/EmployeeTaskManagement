@@ -8,7 +8,7 @@
 }
 <div class="container IndexDiv">
     <div class="row">
-        <div class="col-3 container CenteredContainer text-center">
+        <div class="col-md-4 CenteredContainer text-center" style="font-size:13px; padding-bottom:10px">
 
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <h5 class="text-white">Create a new account.</h5>
@@ -32,7 +32,7 @@
                
                 <div class="form-group">
                     
-                    <p class="mb-0 @menuTextColor">
+                    <p class="@menuTextColor">
                      Have already an account? <a asp-page="./Login" class="text-white-50 fw-bold" asp-route-returnUrl="@Model.ReturnUrl">Login here</a>
                     </p>
                 </div>

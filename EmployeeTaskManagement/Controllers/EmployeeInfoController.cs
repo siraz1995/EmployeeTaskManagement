@@ -24,7 +24,10 @@ namespace EmployeeTaskManagement.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+           // ViewBag.employee = _employeeInfoManager.GetAll.ToList();
+            var list = _employeeInfoManager.GetAll();
+            return View(list);
+           
         }
         [HttpGet]
         public IActionResult Create(int? id)
@@ -34,22 +37,28 @@ namespace EmployeeTaskManagement.Controllers
             {
                 employeeInfo = _employeeInfoManager.GetById((int)id);
             }
-            
-            var departments = _departmentManager.GetAll().ToList();
 
-            
-            ViewBag.DepartmentList = new SelectList(departments, "Id", "Name");
+            ViewBag.DepartmentList = _departmentManager.GetDepartment();
 
+            ViewBag.designationList = _designationManager.GetDesignation();
 
-            var designations = _designationManager.GetDesignation().ToList();
-
-
-             ViewBag.designationList = new SelectList(designations, "DesignationId", "DesignationName");
-
-
-             
             return View(employeeInfo);
            
+        }
+        [HttpPost]
+        public IActionResult Create(EmployeeInfo employeeInfo)
+        {
+            var result = _employeeInfoManager.Add(employeeInfo);
+            if (result)
+            {
+                TempData["Success"] = "Successfully Added";
+            }
+            else
+            {
+                TempData["Error"] = "Failed to save";
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
     }

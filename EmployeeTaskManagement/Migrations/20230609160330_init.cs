@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmployeeTaskManagement.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,6 +87,19 @@ namespace EmployeeTaskManagement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MainMenus", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,6 +223,35 @@ namespace EmployeeTaskManagement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmployeeInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeCode = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false),
+                    DesignationId = table.Column<int>(type: "int", nullable: false),
+                    JoiningDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeInfo", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeInfo_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Department",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeInfo_Designation_DesignationId",
+                        column: x => x.DesignationId,
+                        principalTable: "Designation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubMenus",
                 columns: table => new
                 {
@@ -229,6 +271,56 @@ namespace EmployeeTaskManagement.Migrations
                         name: "FK_SubMenus_MainMenus_MainMenuId",
                         column: x => x.MainMenuId,
                         principalTable: "MainMenus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TaskAssign",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModuleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskAssign", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TaskAssign_EmployeeInfo_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "EmployeeInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserWiseRole",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserWiseRole", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserWiseRole_EmployeeInfo_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "EmployeeInfo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserWiseRole_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -273,9 +365,34 @@ namespace EmployeeTaskManagement.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeInfo_DepartmentId",
+                table: "EmployeeInfo",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeInfo_DesignationId",
+                table: "EmployeeInfo",
+                column: "DesignationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubMenus_MainMenuId",
                 table: "SubMenus",
                 column: "MainMenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssign_EmployeeId",
+                table: "TaskAssign",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserWiseRole_EmployeeId",
+                table: "UserWiseRole",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserWiseRole_RoleId",
+                table: "UserWiseRole",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -296,16 +413,16 @@ namespace EmployeeTaskManagement.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Department");
-
-            migrationBuilder.DropTable(
-                name: "Designation");
-
-            migrationBuilder.DropTable(
                 name: "RoleSubMenus");
 
             migrationBuilder.DropTable(
                 name: "SubMenus");
+
+            migrationBuilder.DropTable(
+                name: "TaskAssign");
+
+            migrationBuilder.DropTable(
+                name: "UserWiseRole");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -315,6 +432,18 @@ namespace EmployeeTaskManagement.Migrations
 
             migrationBuilder.DropTable(
                 name: "MainMenus");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeInfo");
+
+            migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
+                name: "Department");
+
+            migrationBuilder.DropTable(
+                name: "Designation");
         }
     }
 }

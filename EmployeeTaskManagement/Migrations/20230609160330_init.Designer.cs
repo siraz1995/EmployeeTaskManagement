@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeTaskManagement.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20230608125934_solveIssue")]
-    partial class solveIssue
+    [Migration("20230609160330_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,6 +110,23 @@ namespace EmployeeTaskManagement.Migrations
                     b.ToTable("MainMenus");
                 });
 
+            modelBuilder.Entity("EmployeeTaskManagement.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+                });
+
             modelBuilder.Entity("EmployeeTaskManagement.Models.RoleSubMenu", b =>
                 {
                     b.Property<int>("Id")
@@ -200,6 +217,29 @@ namespace EmployeeTaskManagement.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("TaskAssign");
+                });
+
+            modelBuilder.Entity("EmployeeTaskManagement.Models.UserWiseRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserWiseRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -443,6 +483,25 @@ namespace EmployeeTaskManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("EmployeeInfo");
+                });
+
+            modelBuilder.Entity("EmployeeTaskManagement.Models.UserWiseRole", b =>
+                {
+                    b.HasOne("EmployeeTaskManagement.Models.EmployeeInfo", "EmployeeInfo")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeTaskManagement.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EmployeeInfo");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

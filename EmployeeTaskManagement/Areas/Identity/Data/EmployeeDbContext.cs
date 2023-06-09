@@ -53,4 +53,6 @@ public class EmployeeDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Designation> Designation { get; set; }
     public DbSet<EmployeeInfo> EmployeeInfo { get; set; }
     public DbSet<TaskAssign> TaskAssign { get; set; }
+    public DbSet<Role> Role { get; set; }
+    public DbSet<UserWiseRole> UserWiseRole { get; set;}
 }

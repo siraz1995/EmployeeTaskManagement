@@ -1,0 +1,72 @@
+﻿@model IEnumerable<EmployeeTaskManagement.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int row = 1;
+}
+<style>
+    .custom-icon {
+        color: green;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+<link href="~/css/datatable.min.css" rel="stylesheet" />
+<div class="IndexDiv">
+    <div class=" container bg-light" style="margin-top:40px;">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="text-center  bg-primary text-white">
+                    <h1 class="display-10 mt-4 mb-4 p-2">List of Role</h1>
+                </div>
+                <div>
+                    <div id="MessageDiv" style="text-align: center;">
+                        <label style="color:green"><span id="SuccessMessageDiv">@ViewBag.SuccessMessage</span></label>
+                        <label style="color:red"><span id="ErrorMessageDiv" style="color: red">@ViewBag.ErrorMessage</span></label>
+                        <label style="color:red"><span id="DeleteMessageDiv" style="color: red">@ViewBag.DeleteMessage</span></label>
+                    </div>
+                    <a class="btn btn-primary" asp-action="CreateRole"><i class="fas fa-plus-circle"></i> Add</a>
+                </div>
+                <table class="table display table-striped table-borderless custrom-table mb-2">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Role Name</th>                          
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@(row++)</td>
+                                <td>@item.Name</td>
+                               
+                                <td class="d-flex justify-content-end">
+                                    <a asp-action="CreateRole" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>||
+                                    @*<a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye"></i></a> |*@
+                                    <a asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are You Sure you want to Delete?')"><i class="fas fa-trash"></i></a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $('#table').DataTable();
+
+        });
+    </script>
+
+    <script src="~/js/jquery.dataTables.min.js"></script>
+}
+

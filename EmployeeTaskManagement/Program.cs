@@ -20,9 +20,9 @@ namespace EmployeeTaskManagement
                 options.UseSqlServer(connectionString));
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EmployeeDbContext>();
-            builder.Services.AddIdentity<EmployeeInfo, IdentityRole>()
-    .AddEntityFrameworkStores<EmployeeDbContext>()
-    .AddDefaultTokenProviders();
+    //        builder.Services.AddIdentity<EmployeeInfo, IdentityRole>()
+    //.AddEntityFrameworkStores<EmployeeDbContext>()
+    //.AddDefaultTokenProviders();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -31,7 +31,7 @@ namespace EmployeeTaskManagement
             builder.Services.AddScoped<IDesignationManager,DesignationManager>();
             builder.Services.AddScoped<IEmployeeInfoManager, EmployeeInfoManager>();
             builder.Services.AddScoped<ITaskAssignManager, TaskAssignManager>();
-            builder.Services.AddScoped<RoleManager<IdentityRole>>();
+            builder.Services.AddScoped<IRoleManager,RoleManager>();
 
             builder.Services.AddControllers();
 

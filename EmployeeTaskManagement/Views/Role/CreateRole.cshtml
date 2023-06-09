@@ -1,0 +1,44 @@
+﻿@model EmployeeTaskManagement.Models.Role
+
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string menuTextColor = "text-white";
+}
+<div class="IndexDiv">
+    <div class="row justify-content-center mt-4 mb-2">
+        <div class="col-md-5">
+            <form asp-action="CreateRole" class="form-signin create-form bg-white rounded border shadow-sm p-4">
+
+                <div class="text-center  bg-primary @menuTextColor">
+                    <h4 class=" mt-4 mb-4 p-2">Role</h4>
+                </div>
+                @* <div class="text-center mb-4">
+                <h1 class="h5 mb-3 font-weight-bold">Department</h1>
+                </div>*@
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input required="required" asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4 text-center">
+                    <a class="btn btn-success" asp-action="Index">List</a>
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

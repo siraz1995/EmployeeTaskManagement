@@ -155,6 +155,22 @@ body {
         outline: none;
         margin: 2px;
     }
+.dropdown {
+    position: relative;
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 4px 0 4px;
+    border-color: #000000 transparent transparent transparent;
+}
+
 /*.gradient-custom {*/
 /* fallback for old browsers */
 /*background: #6a11cb;*/

@@ -4,6 +4,7 @@ using EmployeeTaskManagement.Data;
 //using EmployeeTaskManagement.Areas.Identity.Data;
 using EmployeeTaskManagement.Interface.Manager;
 using EmployeeTaskManagement.Manager;
+using EmployeeTaskManagement.Models;
 
 namespace EmployeeTaskManagement
 {
@@ -19,6 +20,9 @@ namespace EmployeeTaskManagement
                 options.UseSqlServer(connectionString));
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<EmployeeDbContext>();
+            builder.Services.AddIdentity<EmployeeInfo, IdentityRole>()
+    .AddEntityFrameworkStores<EmployeeDbContext>()
+    .AddDefaultTokenProviders();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -26,7 +30,9 @@ namespace EmployeeTaskManagement
             builder.Services.AddScoped<IDepartmentManager, DepartmentManager>();
             builder.Services.AddScoped<IDesignationManager,DesignationManager>();
             builder.Services.AddScoped<IEmployeeInfoManager, EmployeeInfoManager>();
-            
+            builder.Services.AddScoped<ITaskAssignManager, TaskAssignManager>();
+            builder.Services.AddScoped<RoleManager<IdentityRole>>();
+
             builder.Services.AddControllers();
 
             var app = builder.Build();

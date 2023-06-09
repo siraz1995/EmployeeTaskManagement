@@ -58,16 +58,16 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        $(document).ready(function () {
-            $(document).ready(function () {
-                $("#Allowance").css("display", "block");
-                var id = $("#id").val();
-                if (id != 0) {
-                    $("#submitBtn").val("Update");
-                    $("#AppUserId").prop("disabled", true);
-                }
-            });
-        });
+        //$(document).ready(function () {
+        //    $(document).ready(function () {
+        //        $("#Allowance").css("display", "block");
+        //        var id = $("#id").val();
+        //        if (id != 0) {
+        //            $("#submitBtn").val("Update");
+        //            $("#AppUserId").prop("disabled", true);
+        //        }
+        //    });
+        //});
         function AprroveDateShow() {
             var checkBox = document.getElementById("isFixed");
             var approveDateField = document.getElementById("approveDateField");

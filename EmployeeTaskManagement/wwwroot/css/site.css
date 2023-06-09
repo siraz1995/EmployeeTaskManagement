@@ -95,6 +95,26 @@ body {
     min-width: 100%;
 }
 
+
+@media screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .IndexDiv {
+        top: 10%;
+        bottom: 10%;
+        min-height: 80%;
+        min-width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Adjust styles for even smaller screens */
+    .IndexDiv {
+        top: 15%;
+        bottom: 15%;
+        min-height: 70%;
+        min-width: 100%;
+    }
+}
 .CenteredContainer {
     position: absolute;
     transform: translate(-50%,-50%);

@@ -37,8 +37,8 @@ namespace EmployeeTaskManagement.Controllers
         [HttpPost]
         public IActionResult Create(TaskAssign taskAssign,string btnValue)
         {
-            if(btnValue == "Save")
-            {
+            //if(btnValue == "Save")
+            //{
                 var isSaved=_taskAssignManager.Add(taskAssign);
                 if (isSaved)
                 {
@@ -48,33 +48,33 @@ namespace EmployeeTaskManagement.Controllers
                 {
                     TempData["Error"] = "Task does not assign";
                 }
-            }
-            else
-            {
-                var checkId=_taskAssignManager.GetById(taskAssign.Id);
-                if (checkId != null)
-                {
-                    checkId.EmployeeId = taskAssign.EmployeeId;
-                    checkId.ProjectName= taskAssign.ProjectName;
-                    checkId.ModuleName=taskAssign.ModuleName;
-                    checkId.WorkName= taskAssign.WorkName;
-                    checkId.StartDate= taskAssign.StartDate;
-                    checkId.EndDate= taskAssign.EndDate;
-                    var result=_taskAssignManager.Update(checkId);
-                    if (result)
-                    {
-                        TempData["Success"] = "Successfully Update.";
-                    }
-                    else
-                    {
-                        TempData["Error"] = "Data not update.";
-                    }
-                }
-                else
-                {
-                    TempData["Error"] = "Data not found.";
-                }
-            }
+            //}
+            //else
+            //{
+            //    var checkId=_taskAssignManager.GetById(taskAssign.Id);
+            //    if (checkId != null)
+            //    {
+            //        checkId.EmployeeId = taskAssign.EmployeeId;
+            //        checkId.ProjectName= taskAssign.ProjectName;
+            //        checkId.ModuleName=taskAssign.ModuleName;
+            //        checkId.WorkName= taskAssign.WorkName;
+            //        checkId.StartDate= taskAssign.StartDate;
+            //        checkId.EndDate= taskAssign.EndDate;
+            //        var result=_taskAssignManager.Update(checkId);
+            //        if (result)
+            //        {
+            //            TempData["Success"] = "Successfully Update.";
+            //        }
+            //        else
+            //        {
+            //            TempData["Error"] = "Data not update.";
+            //        }
+            //    }
+                //else
+                //{
+                //    TempData["Error"] = "Data not found.";
+                //}
+            //}
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Delete(int id)
@@ -87,7 +87,7 @@ namespace EmployeeTaskManagement.Controllers
             {
                 TempData["Delete"] = "Assign Task deleted successfully.";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
